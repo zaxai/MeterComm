@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8A76D8B1-8128-4038-B68C-8C534F66E0A0}</ProjectGuid>
+    <RootNamespace>MeterComm</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+    <PlatformToolset>v141_xp</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+    <PlatformToolset>v141_xp</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\BkGnd.bmp" />
+    <None Include="res\MeterComm.ico" />
+    <None Include="res\MeterComm.rc2" />
+    <None Include="res\MeterCommDoc.ico" />
+    <None Include="res\Toolbar.bmp" />
+    <None Include="res\Toolbar256.bmp" />
+    <None Include="UserImages.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ComPortSetting.h" />
+    <ClInclude Include="DataItem.h" />
+    <ClInclude Include="DIDataBase.h" />
+    <ClInclude Include="GlobalVariable.h" />
+    <ClInclude Include="MainData.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Markup.h" />
+    <ClInclude Include="MeterComm.h" />
+    <ClInclude Include="MeterCommDoc.h" />
+    <ClInclude Include="MeterCommView.h" />
+    <ClInclude Include="MeterPos.h" />
+    <ClInclude Include="MeterTesting.h" />
+    <ClInclude Include="MyClassLib.h" />
+    <ClInclude Include="MyFuncLib.h" />
+    <ClInclude Include="NetWorkSetting.h" />
+    <ClInclude Include="ParamSetting.h" />
+    <ClInclude Include="ProduceTesting.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ShowResultOfMT.h" />
+    <ClInclude Include="SoftwareUpdate.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ZButton.h" />
+    <ClInclude Include="ZDevicePort.h" />
+    <ClInclude Include="ZDLT645_2007.h" />
+    <ClInclude Include="ZDLT698_45.h" />
+    <ClInclude Include="ZEdit.h" />
+    <ClInclude Include="ZFac645.h" />
+    <ClInclude Include="ZFileSocket.h" />
+    <ClInclude Include="ZListCtrl.h" />
+    <ClInclude Include="ZProtocol.h" />
+    <ClInclude Include="ZRMTProtocol.h" />
+    <ClInclude Include="ZSerialPort.h" />
+    <ClInclude Include="ZSocket.h" />
+    <ClInclude Include="ZSqlite3.h" />
+    <ClInclude Include="ZStringSocket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ComPortSetting.cpp" />
+    <ClCompile Include="DataItem.cpp" />
+    <ClCompile Include="DIDataBase.cpp" />
+    <ClCompile Include="GlobalVariable.cpp" />
+    <ClCompile Include="MainData.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="Markup.cpp" />
+    <ClCompile Include="MeterComm.cpp" />
+    <ClCompile Include="MeterCommDoc.cpp" />
+    <ClCompile Include="MeterCommView.cpp" />
+    <ClCompile Include="MeterPos.cpp" />
+    <ClCompile Include="MeterTesting.cpp" />
+    <ClCompile Include="MyFuncLib.cpp" />
+    <ClCompile Include="NetWorkSetting.cpp" />
+    <ClCompile Include="ParamSetting.cpp" />
+    <ClCompile Include="ProduceTesting.cpp" />
+    <ClCompile Include="ShowResultOfMT.cpp" />
+    <ClCompile Include="SoftwareUpdate.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ZButton.cpp" />
+    <ClCompile Include="ZDevicePort.cpp" />
+    <ClCompile Include="ZDLT645_2007.cpp" />
+    <ClCompile Include="ZDLT698_45.cpp" />
+    <ClCompile Include="ZEdit.cpp" />
+    <ClCompile Include="ZFac645.cpp" />
+    <ClCompile Include="ZFileSocket.cpp" />
+    <ClCompile Include="ZListCtrl.cpp" />
+    <ClCompile Include="ZProtocol.cpp" />
+    <ClCompile Include="ZRMTProtocol.cpp" />
+    <ClCompile Include="ZSerialPort.cpp" />
+    <ClCompile Include="ZSocket.cpp" />
+    <ClCompile Include="ZSqlite3.cpp" />
+    <ClCompile Include="ZStringSocket.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MeterComm.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="MeterComm.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
