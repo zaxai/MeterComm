@@ -17,7 +17,7 @@ ZSqlite3::~ZSqlite3(void)
 bool ZSqlite3::OpenDB(const CString & in_strPath)
 {
 	char szPath[MAX_PATH]={0};
-	if(!TtoUTF8_Z(in_strPath,szPath,MAX_PATH))
+	if(!ZUtil::WtoUTF8(in_strPath,szPath,MAX_PATH))
 		return false;
 	if(SQLITE_OK==sqlite3_open(szPath,&m_p_sqlite3))
 		return true;
@@ -44,13 +44,17 @@ bool ZSqlite3::CloseDB(void)
 int ZSqlite3::ExecSQL(const CString & in_strSQL, CString * out_p_strErrMsg)
 {
 	if(m_p_sqlite3==NULL)
-		return 1;
+		return ERROR_INVALIDSQLITE;
 	int nLength=in_strSQL.GetLength();
 	nLength=6*nLength+1;
 	char * p_cSQL=new char[nLength];
 	if(p_cSQL==NULL)
-		return 2;
-	TtoUTF8_Z(in_strSQL,p_cSQL,nLength);
+		return ERROR_OTHER;
+	if (!ZUtil::WtoUTF8(in_strSQL, p_cSQL, nLength))
+	{
+		delete[]p_cSQL;
+		return ERROR_OTHER;
+	}
 	char * p_cErrMsg=NULL;
 	int nRtn=sqlite3_exec(m_p_sqlite3,p_cSQL,NULL,NULL,&p_cErrMsg);
 	delete []p_cSQL;
@@ -58,12 +62,12 @@ int ZSqlite3::ExecSQL(const CString & in_strSQL, CString * out_p_strErrMsg)
 	{
 		if(out_p_strErrMsg)
 		{
-			UTF8toT_Z(p_cErrMsg,out_p_strErrMsg->GetBuffer(strlen(p_cErrMsg)+1),strlen(p_cErrMsg)+1);
+			ZUtil::UTF8toW(p_cErrMsg,out_p_strErrMsg->GetBuffer(strlen(p_cErrMsg)+1),strlen(p_cErrMsg)+1);
 			out_p_strErrMsg->ReleaseBuffer();
 		}
-		return 3;
+		return ERROR_EXEC;
 	}
-	return 0;
+	return ERROR_OK;
 }
 
 
@@ -71,13 +75,17 @@ int ZSqlite3::GetTable(const CString & in_strSQL, std::vector<std::vector <CStri
 {
 	out_vec2_strData.clear();
 	if(m_p_sqlite3==NULL)
-		return 1;
+		return ERROR_INVALIDSQLITE;
 	int nLength=in_strSQL.GetLength();
 	nLength=6*nLength+1;
 	char * p_cSQL=new char[nLength];
 	if(p_cSQL==NULL)
-		return 2;
-	TtoUTF8_Z(in_strSQL,p_cSQL,nLength);
+		return ERROR_OTHER;
+	if (!ZUtil::WtoUTF8(in_strSQL, p_cSQL, nLength))
+	{
+		delete[]p_cSQL;
+		return ERROR_OTHER;
+	}
 	char * * p_cResult=NULL;
 	int nRow=0,nColumn=0;
 	char * p_cErrMsg=NULL;
@@ -91,8 +99,11 @@ int ZSqlite3::GetTable(const CString & in_strSQL, std::vector<std::vector <CStri
 			for(int j=0;j<nColumn;++j)
 			{
 				CString str;
-				UTF8toT_Z(p_cResult[i*nColumn+j],str.GetBuffer(strlen(p_cResult[i*nColumn+j])+1),strlen(p_cResult[i*nColumn+j])+1);
-				str.ReleaseBuffer();
+				if (p_cResult[i*nColumn + j])
+				{
+					ZUtil::UTF8toW(p_cResult[i*nColumn + j], str.GetBuffer(strlen(p_cResult[i*nColumn + j]) + 1), strlen(p_cResult[i*nColumn + j]) + 1);
+					str.ReleaseBuffer();
+				}
 				vec_strRow.push_back(str);
 			}
 			out_vec2_strData.push_back(vec_strRow);
@@ -103,10 +114,10 @@ int ZSqlite3::GetTable(const CString & in_strSQL, std::vector<std::vector <CStri
 	{
 		if(out_p_strErrMsg)
 		{
-			UTF8toT_Z(p_cErrMsg,out_p_strErrMsg->GetBuffer(strlen(p_cErrMsg)+1),strlen(p_cErrMsg)+1);
+			ZUtil::UTF8toW(p_cErrMsg,out_p_strErrMsg->GetBuffer(strlen(p_cErrMsg)+1),strlen(p_cErrMsg)+1);
 			out_p_strErrMsg->ReleaseBuffer();
 		}
-		return 3;
+		return ERROR_GETTABLE;
 	}
-	return 0;
+	return ERROR_OK;
 }

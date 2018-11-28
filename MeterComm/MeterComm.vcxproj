@@ -119,8 +119,6 @@
     <ClInclude Include="MeterCommView.h" />
     <ClInclude Include="MeterPos.h" />
     <ClInclude Include="MeterTesting.h" />
-    <ClInclude Include="MyClassLib.h" />
-    <ClInclude Include="MyFuncLib.h" />
     <ClInclude Include="NetWorkSetting.h" />
     <ClInclude Include="ParamSetting.h" />
     <ClInclude Include="ProduceTesting.h" />
@@ -143,6 +141,7 @@
     <ClInclude Include="ZSocket.h" />
     <ClInclude Include="ZSqlite3.h" />
     <ClInclude Include="ZStringSocket.h" />
+    <ClInclude Include="ZUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ComPortSetting.cpp" />
@@ -157,7 +156,6 @@
     <ClCompile Include="MeterCommView.cpp" />
     <ClCompile Include="MeterPos.cpp" />
     <ClCompile Include="MeterTesting.cpp" />
-    <ClCompile Include="MyFuncLib.cpp" />
     <ClCompile Include="NetWorkSetting.cpp" />
     <ClCompile Include="ParamSetting.cpp" />
     <ClCompile Include="ProduceTesting.cpp" />
@@ -181,6 +179,7 @@
     <ClCompile Include="ZSocket.cpp" />
     <ClCompile Include="ZSqlite3.cpp" />
     <ClCompile Include="ZStringSocket.cpp" />
+    <ClCompile Include="ZUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MeterComm.rc" />

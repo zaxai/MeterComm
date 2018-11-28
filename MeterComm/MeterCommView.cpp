@@ -436,7 +436,7 @@ UINT CMeterCommView::PortCommThreadFunc(LPVOID lpParam)
 		SendMessageTimeout(p_SourceDlg->m_hWnd,WM_MSGRECVPRO,(WPARAM)p_md,MSGUSER_ENCODE,SMTO_BLOCK,500,NULL); 
 		if(p_md->m_nRtn)
 			goto end;
-		StrSplit_Z(p_md->m_strDataSend,vec_strData,_T('#'), p_md->m_strDataSend.Right(1)==_T('#'));
+		ZUtil::StrSplit(p_md->m_strDataSend,vec_strData,_T('#'), p_md->m_strDataSend.Right(1)==_T('#'));
 		int nSize = vec_strData.size();
 		for (int i = 0; i < nSize; ++i)
 		{
@@ -749,7 +749,7 @@ afx_msg LRESULT CMeterCommView::OnMsgrecvpro(WPARAM wParam, LPARAM lParam)
 	{
 		CString * p_str = (CString *)wParam;
 		std::vector<CString> vec_strDatas;
-		StrSplit_Z(*p_str, vec_strDatas, _T('*'), p_str->Right(1) == _T('*'));
+		ZUtil::StrSplit(*p_str, vec_strDatas, _T('*'), p_str->Right(1) == _T('*'));
 		if (vec_strDatas[0] != g_strVersion)
 		{
 			OnHelpingUpdate();
@@ -760,12 +760,12 @@ afx_msg LRESULT CMeterCommView::OnMsgrecvpro(WPARAM wParam, LPARAM lParam)
 	{
 		if (wParam)
 		{
-			::DeleteFile(GetExeCatalogPath_Z() + _T("\\res\\DataItem.ditemp"));
+			::DeleteFile(ZUtil::GetExeCatalogPath() + _T("\\res\\DataItem.ditemp"));
 		}
 		else
 		{
-			::DeleteFile(GetExeCatalogPath_Z() + _T("\\res\\DataItem.di"));
-			CFile::Rename(GetExeCatalogPath_Z() + _T("\\res\\DataItem.ditemp"), GetExeCatalogPath_Z() + _T("\\res\\DataItem.di"));
+			::DeleteFile(ZUtil::GetExeCatalogPath() + _T("\\res\\DataItem.di"));
+			CFile::Rename(ZUtil::GetExeCatalogPath() + _T("\\res\\DataItem.ditemp"), ZUtil::GetExeCatalogPath() + _T("\\res\\DataItem.di"));
 		}
 	}
 	break;
@@ -1301,7 +1301,7 @@ UINT CMeterCommView::UpdateDIDBThreadFunc(LPVOID lpParam)
 	CMeterCommView * m_p_MainDlg=(CMeterCommView *)lpParam;
 	ResetEvent(m_p_MainDlg->m_hEvtExitUpdateDIDB);
 	CString strDataIn,strHead,strPath;
-	::CreateDirectory(GetExeCatalogPath_Z()+_T("\\res"), NULL);
+	::CreateDirectory(ZUtil::GetExeCatalogPath()+_T("\\res"), NULL);
 	strDataIn=_T("DataItem.di");
 	strHead.Format(_T("[%06d05]"),strDataIn.GetLength()+10);
 	strDataIn=strHead+strDataIn;
@@ -1327,7 +1327,7 @@ UINT CMeterCommView::UpdateDIDBThreadFunc(LPVOID lpParam)
 		SetEvent(m_p_MainDlg->m_hEvtExitUpdateDIDB);
 		return 0;
 	}
-	strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.ditemp");
+	strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.ditemp");
 	sock.SetFilePath(strPath);
 	ULONGLONG llLength=0;
 	CString strLength,strFinish, strCurTimes;
@@ -1404,7 +1404,7 @@ void CMeterCommView::ReadGlobalVariable()
 	if (InitGlobalVariableDB())
 	{
 		ZSqlite3 zsql;
-		CString strPath = GetExeCatalogPath_Z() + _T("\\res\\Data.db3");
+		CString strPath = ZUtil::GetExeCatalogPath() + _T("\\res\\Data.db3");
 		if (!zsql.OpenDB(strPath))
 			return;
 		CString  strSQL, strError;
@@ -1439,7 +1439,7 @@ void CMeterCommView::WriteGlobalVariable()
 	if (InitGlobalVariableDB())
 	{
 		ZSqlite3 zsql;
-		CString strPath = GetExeCatalogPath_Z() + _T("\\res\\Data.db3");
+		CString strPath = ZUtil::GetExeCatalogPath() + _T("\\res\\Data.db3");
 		if (!zsql.OpenDB(strPath))
 			return;
 		CString  strSQL, strError;
@@ -1460,7 +1460,7 @@ BOOL CMeterCommView::InitGlobalVariableDB()
 {
 	// TODO: 在此处添加实现代码.
 	ZSqlite3 zsql;
-	CString strPath = GetExeCatalogPath_Z() + _T("\\res\\Data.db3");
+	CString strPath = ZUtil::GetExeCatalogPath() + _T("\\res\\Data.db3");
 	if (!zsql.OpenDB(strPath))
 		return FALSE;
 	const CString sz_strIDInfo[] =

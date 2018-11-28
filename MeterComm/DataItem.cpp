@@ -72,7 +72,7 @@ void CDataItem::OnBnClickedButtonSearch()
 	GetDlgItemText(IDC_EDIT_SEARCH,strSearch);
 	strSearch.MakeUpper();
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 	{
@@ -230,9 +230,9 @@ void CDataItem::InsertList(const int & nIndex)
 {
 	m_listItem.DeleteAllItems();
 	std::vector<CString> vec_strData;
-	StrSplit_Z(m_vec_strClass[nIndex],vec_strData,_T(','),m_vec_strClass[nIndex].Right(1)==_T(','));
+	ZUtil::StrSplit(m_vec_strClass[nIndex],vec_strData,_T(','),m_vec_strClass[nIndex].Right(1)==_T(','));
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 	{

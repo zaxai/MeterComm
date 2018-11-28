@@ -1112,7 +1112,7 @@ void CProduceTesting::InsertPlan(const CString & strPlanPath)
 {
 	CString strPlanData,strConfigure;
 	m_listTest.DeleteAllItems();
-	if(!ReadFile2CString_Z(strPlanPath,strPlanData))
+	if(!ZUtil::ReadFile2CString(strPlanPath,strPlanData))
 	{	
 		AfxMessageBox(_T("打开方案失败！"));
 		return;
@@ -1127,7 +1127,7 @@ void CProduceTesting::InsertPlan(const CString & strPlanPath)
 	}
 	strConfigure=strPlanData.Left(nConfigFlag+1);
 	std::vector<CString> vec_strConfig;
-	StrSplit_Z(strConfigure,vec_strConfig,_T('|'),strConfigure.Right(1)==_T('|'));
+	ZUtil::StrSplit(strConfigure,vec_strConfig,_T('|'),strConfigure.Right(1)==_T('|'));
 	if(int(vec_strConfig.size())<15)
 	{
 		AfxMessageBox(_T("方案配置信息不全！"));
@@ -1143,7 +1143,7 @@ void CProduceTesting::InsertPlan(const CString & strPlanPath)
 	SetDlgItemText(IDC_EDIT_CONFIGURE,strConfigure);
 	strPlanData=strPlanData.Mid(nConfigFlag+2);
 	std::vector<CString> vec_strDatas;
-	StrSplit_Z(strPlanData,vec_strDatas,_T('\n'),strPlanData.Right(1)==_T('\n'));
+	ZUtil::StrSplit(strPlanData,vec_strDatas,_T('\n'),strPlanData.Right(1)==_T('\n'));
 	m_listTest.SetRedraw(FALSE);
 	m_vec2_strCurPlan.clear();
 	CString strTemp;
@@ -1152,7 +1152,7 @@ void CProduceTesting::InsertPlan(const CString & strPlanPath)
 	for(i=0,j=0;i<nSize;++i)
 	{
 		std::vector<CString> vec_strRowData;
-		StrSplit_Z(vec_strDatas[i],vec_strRowData,_T(','),vec_strDatas[i].Right(1)==_T(','));
+		ZUtil::StrSplit(vec_strDatas[i],vec_strRowData,_T(','),vec_strDatas[i].Right(1)==_T(','));
 		nSubSize=vec_strRowData.size();
 		if(nSubSize!=8)
 			continue;
@@ -1318,7 +1318,7 @@ pro90:
 	else if (strReqResCode == _T("85")|| strReqResCode == _T("86")|| strReqResCode == _T("87"))
 	{
 		p_md->m_p_dlt698->GetXmlObjValue(strXml, vec_strObj, vec_strTValue, vec_strDValue, vec_nType);
-		StrSplit_Z(strCorrectData, vec_strCorrectData, _T('#'), strCorrectData.Right(1) == _T('#'));
+		ZUtil::StrSplit(strCorrectData, vec_strCorrectData, _T('#'), strCorrectData.Right(1) == _T('#'));
 		int nSize = vec_strObj.size() > vec_strCorrectData.size() ? vec_strCorrectData.size() : vec_strObj.size();
 		for (int i = 0; i < (int)vec_strObj.size(); ++i)
 		{
@@ -1530,7 +1530,7 @@ bool CProduceTesting::ExecError(CMainData * p_md,std::map<int,CString> & mapMete
 	std::vector<CString> vec_strData;
 	CString strValue(p_md->m_strDataValue);
 	strValue=strValue.Left(strValue.Find(_T('@')));
-	StrSplit_Z(strValue,vec_strData,_T('#'),strValue.Right(1)==_T('#'));
+	ZUtil::StrSplit(strValue,vec_strData,_T('#'),strValue.Right(1)==_T('#'));
 	CString strCorrectData=m_vec2_strCurPlan[p_md->m_nRow][4];
 	int nLineIndex=strCorrectData.Find(_T('_'));
 	double dValue,dCorrectValueDown,dCorrectValueUp;
@@ -1653,14 +1653,14 @@ CString CProduceTesting::ExecTgtOrCorrectData(CMainData * p_md, const CString & 
 	if (strData.Find(_T("hhmmss"))!=-1&& strRtnData.Find(_T("_")) != -1)
 	{
 		std::vector<CString> vec_strData1;
-		StrSplit_Z(strRtnData, vec_strData1, _T('_'), strRtnData.Right(1) == _T('_'));
+		ZUtil::StrSplit(strRtnData, vec_strData1, _T('_'), strRtnData.Right(1) == _T('_'));
 		for (int i = 0; i<2; ++i)
 		{
 			std::vector<CString> vec_strData2;
 			double dData = 0;
 			if (vec_strData1[i].Find(_T("+")) != -1)
 			{
-				StrSplit_Z(vec_strData1[i], vec_strData2, _T('+'), vec_strData1[i].Right(1) == _T('+'));
+				ZUtil::StrSplit(vec_strData1[i], vec_strData2, _T('+'), vec_strData1[i].Right(1) == _T('+'));
 				CTime curTime(stTime);
 				CTimeSpan timeSpan(0, 0, 0, _ttoi(vec_strData2[1]));
 				vec_strData1[i] = (curTime + timeSpan).Format(_T("%Y%m%d")) + _T("0") + (curTime + timeSpan).Format(_T("%w%H%M%S"));
@@ -1668,7 +1668,7 @@ CString CProduceTesting::ExecTgtOrCorrectData(CMainData * p_md, const CString & 
 			}
 			if (vec_strData1[i].Find(_T("-")) != -1)
 			{
-				StrSplit_Z(vec_strData1[i], vec_strData2, _T('-'), vec_strData1[i].Right(1) == _T('-'));
+				ZUtil::StrSplit(vec_strData1[i], vec_strData2, _T('-'), vec_strData1[i].Right(1) == _T('-'));
 				CTime curTime(stTime);
 				CTimeSpan timeSpan(0, 0, 0, _ttoi(vec_strData2[1]));
 				vec_strData1[i] = (curTime - timeSpan).Format(_T("%Y%m%d")) + _T("0") + (curTime - timeSpan).Format(_T("%w%H%M%S"));
@@ -1680,7 +1680,7 @@ CString CProduceTesting::ExecTgtOrCorrectData(CMainData * p_md, const CString & 
 	if (strRtnData.Find(_T("|")) != -1)
 	{
 		std::vector<CString> vec_strData;
-		StrSplit_Z(strRtnData, vec_strData, _T('|'), strRtnData.Right(1) == _T('|'));
+		ZUtil::StrSplit(strRtnData, vec_strData, _T('|'), strRtnData.Right(1) == _T('|'));
 		CString strTemp;
 		int nSize = vec_strData.size();
 		for (int i = 0; i<nSize; ++i)
@@ -1814,11 +1814,11 @@ UINT CProduceTesting::UpdatePlanThreadFunc(LPVOID lpParam)
 	{
 		if(strDataOut.Mid(0,1)==_T("[")&&strDataOut.Mid(9,1)==_T("]")&&_ttoi(strDataOut.Mid(1,6))==strDataOut.GetLength()&&strDataOut.Mid(7,2)==_T("03"))
 		{
-			::CreateDirectory(GetExeCatalogPath_Z()+_T("\\plan"), NULL);
-			::CreateDirectory(GetExeCatalogPath_Z()+_T("\\plan\\network"), NULL);
+			::CreateDirectory(ZUtil::GetExeCatalogPath()+_T("\\plan"), NULL);
+			::CreateDirectory(ZUtil::GetExeCatalogPath()+_T("\\plan\\network"), NULL);
 			strDataOut.Delete(0,10);
 			std::vector<CString> vec_strDatas;
-			StrSplit_Z(strDataOut,vec_strDatas,_T('*'),strDataOut.Right(1)==_T('*'));
+			ZUtil::StrSplit(strDataOut,vec_strDatas,_T('*'),strDataOut.Right(1)==_T('*'));
 			int nSize=vec_strDatas.size();
 			for(int i=0;i<nSize;++i)
 			{
@@ -1847,7 +1847,7 @@ UINT CProduceTesting::UpdatePlanThreadFunc(LPVOID lpParam)
 					sock.CloseSocket();
 					continue;
 				}
-				strPath=GetExeCatalogPath_Z()+_T("\\plan\\network\\")+strDataIn.Mid(10);
+				strPath=ZUtil::GetExeCatalogPath()+_T("\\plan\\network\\")+strDataIn.Mid(10);
 				sock.SetFilePath(strPath);
 				ULONGLONG llLength=0;
 				CString strLength,strFinish, strCurTimes;

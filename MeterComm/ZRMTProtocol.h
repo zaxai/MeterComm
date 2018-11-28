@@ -1,6 +1,5 @@
 #pragma once
 #include "ZProtocol.h"
-#include "MyFuncLib.h"
 class ZRMTProtocol:public ZProtocol
 {
 private:

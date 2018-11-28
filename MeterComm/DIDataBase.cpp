@@ -84,7 +84,7 @@ void CDIDataBase::InitList(void)
 void CDIDataBase::InsertList(void)
 {
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 	{
@@ -131,7 +131,7 @@ afx_msg LRESULT CDIDataBase::OnMsgrecvpro(WPARAM wParam, LPARAM lParam)
 				ItemInfo * p_ii=(ItemInfo *)wParam;
 				const CString sz_strHead[]={_T("ID"),_T("DataItem"),_T("DataName"),_T("FstClass"),_T("SecClass"),_T("DataFormat"),_T("DataLen"),_T("Unit"),_T("IsRead"),_T("IsWrite"),_T("IsASCII")};
 				ZSqlite3 zsql;
-				CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+				CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 				CStdioFile f;
 				if(!f.Open(strPath, CFile::modeRead))
 				{
@@ -191,7 +191,7 @@ void CDIDataBase::OnBnClickedButtonAdd()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 	{
@@ -217,12 +217,12 @@ void CDIDataBase::OnBnClickedButtonAdd()
 	strEdit.Remove(_T('\r'));
 	strEdit.Remove(_T('\n'));
 	std::vector<CString>  vec_strData,vec_strRowData;
-	StrSplit_Z(strEdit,vec_strData,_T(';'),strEdit.Right(1)==_T(';'));
+	ZUtil::StrSplit(strEdit,vec_strData,_T(';'),strEdit.Right(1)==_T(';'));
 	int nSize=vec_strData.size();
 	m_listItem.SetRedraw(FALSE);
 	for(int i=0;i<nSize;++i)
 	{
-		StrSplit_Z(vec_strData[i],vec_strRowData,_T(','),vec_strData[i].Right(1)==_T(','));
+		ZUtil::StrSplit(vec_strData[i],vec_strRowData,_T(','),vec_strData[i].Right(1)==_T(','));
 		if(vec_strRowData.size()!=10)
 			break;
 		strSQL.Format(_T("INSERT INTO DataItem645 VALUES (%d,'%s','%s',%s,%s,'%s',%s,'%s',%s,%s,%s)"),nID+i,vec_strRowData[0],vec_strRowData[1],vec_strRowData[2],vec_strRowData[3],vec_strRowData[4],vec_strRowData[5],vec_strRowData[6],vec_strRowData[7],vec_strRowData[8],vec_strRowData[9]);
@@ -245,7 +245,7 @@ void CDIDataBase::OnBnClickedButtonDelete()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 	{

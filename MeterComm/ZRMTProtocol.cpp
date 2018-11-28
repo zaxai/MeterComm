@@ -197,7 +197,7 @@ int ZRMTProtocol::Type23Pro(CString & strData)
 	std::vector<CString> vec_strData; 
 	std::vector<CString> vec_strDataTemp;
 	std::vector<float> vec_fData;
-	StrSplit_Z(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
+	ZUtil::StrSplit(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
 	if(int(vec_strData.size())!=4)
 		return 5;
 	for(int i=2;i<4;++i)
@@ -238,7 +238,7 @@ int ZRMTProtocol::Type20Pro(CString & strData)
 	std::vector<CString> vec_strData; 
 	std::vector<CString> vec_strDataTemp;
 	std::vector<float> vec_fData;
-	StrSplit_Z(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
+	ZUtil::StrSplit(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
 	if(vec_strData.size()!=6)
 		return 7;
 	for(int i=2;i<4;++i)
@@ -293,7 +293,7 @@ void ZRMTProtocol::Type15Pro(CString & strData)
 int ZRMTProtocol::Type11Pro(CString & strData)
 {
 	std::vector<CString> vec_strData; 
-	StrSplit_Z(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
+	ZUtil::StrSplit(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
 	if(vec_strData.size()!=2)
 		return 1;
 	int nIsChoose=_ttoi(vec_strData[1]);
@@ -312,7 +312,7 @@ int ZRMTProtocol::Type10Pro(CString & strData)
 {
 	std::vector<CString> vec_strData; 
 	std::vector<float> vec_fData;
-	StrSplit_Z(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
+	ZUtil::StrSplit(strData,vec_strData,tcSplitChar,strData.Right(1)==tcSplitChar);
 	if(vec_strData.size()!=5)
 		return 6;
 	VecHexStr2VecFloat2Str(vec_strData,vec_fData,4,strData);
@@ -348,7 +348,7 @@ bool ZRMTProtocol::VecHexStr2VecFloat2Str(const std::vector<CString> & vec_strDa
 		fData=float(_ttof(vec_strData[i]));
 		vec_fData.push_back(fData);
 	}
-	BOOL nRtn=IsLittle_Endian_Z();
+	BOOL nRtn=ZUtil::IsLittle_Endian();
 	CString strByte;
 	BYTE * p_c=NULL;
 	for(int i=0;i<nChangeCount;++i)

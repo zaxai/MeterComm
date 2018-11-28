@@ -212,9 +212,9 @@ void CMeterTesting::OnTvnSelchangedTreeItemclass(NMHDR *pNMHDR, LRESULT *pResult
 void CMeterTesting::InsertList(const int & nIndex)
 {
 	std::vector<CString> vec_strData;
-	StrSplit_Z(m_vec_strClass[nIndex],vec_strData,_T(','),m_vec_strClass[nIndex].Right(1)==_T(','));
+	ZUtil::StrSplit(m_vec_strClass[nIndex],vec_strData,_T(','),m_vec_strClass[nIndex].Right(1)==_T(','));
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 	{
@@ -801,7 +801,7 @@ CString CMeterTesting::ExecResult(const CString & strDataItem,const CString &str
 	if(strData==_T("ErrorData-D1H")||strData==_T("ErrorData-D4H"))
 		return CString(_T(""));
 	ZSqlite3 zsql;
-	CString strPath=GetExeCatalogPath_Z()+_T("\\res\\DataItem.di");
+	CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
 	CStdioFile f;
 	if(!f.Open(strPath, CFile::modeRead))
 		return CString(_T(""));
@@ -1135,7 +1135,7 @@ void CMeterTesting::DataChange(CString & str,const CString & strFormat,const CSt
 			str.Insert(i,strFormat[i]);
 	}
 	std::vector<CString> vec_strData;
-	StrSplit_Z(str,vec_strData,_T('/'),str.Right(1)==_T('/'));
+	ZUtil::StrSplit(str,vec_strData,_T('/'),str.Right(1)==_T('/'));
 	int nSize=vec_strData.size();
 	str.Empty();
 	for(int i=nSize-1;i>=0;--i)

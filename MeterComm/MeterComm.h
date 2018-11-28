@@ -8,8 +8,7 @@
 #endif
 
 #include "resource.h"       // Ö÷·ûºÅ
-#include "MyFuncLib.h"
-#include "MyClassLib.h"
+#include "ZClassLib.h"
 #include <vector>
 
 // CMeterCommApp:

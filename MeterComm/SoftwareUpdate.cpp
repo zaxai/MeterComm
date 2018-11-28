@@ -143,7 +143,7 @@ afx_msg LRESULT CSoftwareUpdate::OnMsgrecvpro(WPARAM wParam, LPARAM lParam)
 		{
 			CString * p_str=(CString *)wParam;
 			std::vector<CString> vec_strDatas;
-			StrSplit_Z(*p_str,vec_strDatas,_T('*'),p_str->Right(1)==_T('*'));
+			ZUtil::StrSplit(*p_str,vec_strDatas,_T('*'),p_str->Right(1)==_T('*'));
 			SetDlgItemText(IDC_STATIC_LATESTVERSION,vec_strDatas[0]);
 			if(vec_strDatas[0]!=g_strVersion)
 			{
@@ -181,11 +181,11 @@ void CSoftwareUpdate::OnBnClickedOk()
 void CSoftwareUpdate::SoftWareUpdate(void)
 {
 	CString strUpdatePath,strParameters;
-	strUpdatePath=GetExeCatalogPath_Z()+_T("\\SoftwareUpdate.exe");
+	strUpdatePath=ZUtil::GetExeCatalogPath()+_T("\\SoftwareUpdate.exe");
 	CString & strIP=g_v.g_strServerIP;
 	CString & strPort=g_v.g_strServerPort;
 	CString & strTimeOut=g_v.g_strServerTimeOut;
-	strParameters=_T(" ")+strIP+_T(" ")+strPort+_T(" \"")+GetExePath_Z()+_T("\"");
+	strParameters=_T(" ")+strIP+_T(" ")+strPort+_T(" \"")+ZUtil::GetExePath()+_T("\"");
 	HINSTANCE hRtn=ShellExecute(0,_T("open"),strUpdatePath,strParameters,NULL,SW_SHOWNORMAL);
 	int nRtn=(int)hRtn;
 	if(nRtn>32)
