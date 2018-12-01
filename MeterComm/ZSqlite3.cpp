@@ -65,8 +65,10 @@ int ZSqlite3::ExecSQL(const CString & in_strSQL, CString * out_p_strErrMsg)
 			ZUtil::UTF8toW(p_cErrMsg,out_p_strErrMsg->GetBuffer(strlen(p_cErrMsg)+1),strlen(p_cErrMsg)+1);
 			out_p_strErrMsg->ReleaseBuffer();
 		}
+		sqlite3_free(p_cErrMsg);
 		return ERROR_EXEC;
 	}
+	sqlite3_free(p_cErrMsg);
 	return ERROR_OK;
 }
 
@@ -117,7 +119,9 @@ int ZSqlite3::GetTable(const CString & in_strSQL, std::vector<std::vector <CStri
 			ZUtil::UTF8toW(p_cErrMsg,out_p_strErrMsg->GetBuffer(strlen(p_cErrMsg)+1),strlen(p_cErrMsg)+1);
 			out_p_strErrMsg->ReleaseBuffer();
 		}
+		sqlite3_free(p_cErrMsg);
 		return ERROR_GETTABLE;
 	}
+	sqlite3_free(p_cErrMsg);
 	return ERROR_OK;
 }
