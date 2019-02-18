@@ -896,7 +896,8 @@ void CMeterCommView::OnSettingNetwork()
 		case 1:g_v.g_nDllType = 2; break;
 		case 2:g_v.g_nDllType = 3; break;
 		case 3:g_v.g_nDllType = 4; break;
-		case 4:g_v.g_nDllType = 1; break;
+		case 4:g_v.g_nDllType = 5; break;
+		case 5:g_v.g_nDllType = 1; break;
 		}
 	}
 }
@@ -1424,7 +1425,8 @@ void CMeterCommView::ReadGlobalVariable()
 			case 1:g_v.g_nDllType = 2; break;
 			case 2:g_v.g_nDllType = 3; break;
 			case 3:g_v.g_nDllType = 4; break;
-			case 4:g_v.g_nDllType = 1; break;
+			case 4:g_v.g_nDllType = 5; break;
+			case 5:g_v.g_nDllType = 1; break;
 			}
 			g_v.g_nIsRemote = _ttoi(vec2_strData[7 + 1][0]);
 		}

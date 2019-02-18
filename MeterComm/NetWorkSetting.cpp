@@ -61,7 +61,7 @@ BOOL CNetWorkSetting::OnInitDialog()
 	SetDlgItemText(IDC_EDIT_NETCPTIP,m_strNetCptIP);
 	SetDlgItemText(IDC_EDIT_NETCPTPORT,m_strNetCptPort);
 	SetDlgItemText(IDC_EDIT_NETCPTTIMEOUT,m_strNetCptTimeOut);
-	CString sz_strEncryptor[] = { _T("09本地加密机"),_T("13国网加密机"),_T("13陕西地电加密机"),_T("15南网加密机"),_T("17国网698加密机") };
+	CString sz_strEncryptor[] = { _T("09本地加密机"),_T("13国网加密机"),_T("13陕西地电加密机"),_T("15南网加密机"),_T("18蒙西加密机"),_T("17国网698加密机") };
 	for (int i = 0; i<sizeof(sz_strEncryptor) / sizeof(CString); ++i)
 		m_comboEncryptor.AddString(sz_strEncryptor[i]);
 	m_comboEncryptor.SetCurSel(m_nDllSel);
@@ -186,7 +186,8 @@ void CNetWorkSetting::OnCbnSelchangeComboEncryptor()
 	case 1:m_strNetCptIP = _T("10.0.17.99"); break;
 	case 2:m_strNetCptIP = _T("10.0.17.109"); break;
 	case 3:m_strNetCptIP = _T("10.0.17.108"); break;
-	case 4:m_strNetCptIP = _T("10.0.17.107"); break;
+	case 4:m_strNetCptIP = _T("10.0.17.106"); break;
+	case 5:m_strNetCptIP = _T("10.0.17.107"); break;
 	}
 	SetDlgItemText(IDC_EDIT_NETCPTIP, m_strNetCptIP);
 }
