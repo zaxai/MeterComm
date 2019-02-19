@@ -103,6 +103,8 @@ public:
 	int InintPurse13SGCC(CString & strData);
 	int InCreasePurse09SGCC(CString & strData);
 	int SwitchChargeMode15CSG(CString & strData);
+	static int ReadParamPresetCard18SGC(CString & strCardNum, CString & strAppBina, CString & strMoney, CString & strTimeZoneParam);
+	static int WriteParamPresetCard18SGC(const CString & strIp, const CString & strPort, const CString & strTimeOut, const CString & strAppBina, const CString & strMoney, const CString & strTimeZoneParam);
 	int GetEncodeRemoteData(CString & strData,CString & strError);
 	bool SocketCommunication(const CString & strDataIn,CString & strDataOut);
 	int GetApdu(void);

@@ -1,4 +1,7 @@
 #pragma once
+#include "CCardHeadDB.h"
+#include "CCardItemDB.h"
+#include "CCardContentDB.h"
 class CGlobalVariable
 {
 public:
@@ -24,5 +27,8 @@ public:
 	CString g_strNetCptTimeOut;
 	CString Get645Param(void);
 	CString Get698Param(void);
+	CCardHeadDB g_chdb;
+	CCardItemDB g_cidb;
+	CCardContentDB g_ccdb;
 };
 

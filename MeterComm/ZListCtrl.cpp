@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(ZListCtrl, CListCtrl)
 	ON_WM_CTLCOLOR()
 	ON_WM_HSCROLL()
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, &ZListCtrl::OnNMCustomdraw)
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 
@@ -40,12 +41,12 @@ END_MESSAGE_MAP()
 void ZListCtrl::PreSubclassWindow()
 {
 	// TODO: 在此添加专用代码和/或调用基类
-	if (m_editModify.m_hWnd == NULL)
+	/*if (m_editModify.m_hWnd == NULL)
 	{
 		m_editModify.Create(WS_CHILD|WS_VISIBLE|ES_CENTER|WS_TABSTOP|WS_EX_TOOLWINDOW,CRect(0,0,0,0),this,IDC_EDIT_MODIFY);
 		m_editModify.ShowWindow(SW_HIDE);
 		m_editModify.SetFont(GetFont());
-	}
+	}*/
 	CListCtrl::PreSubclassWindow();
 }
 
@@ -418,4 +419,19 @@ BOOL ZListCtrl::SetBkDefaultColor(COLORREF cr, BOOL bRedraw)
 	if(bRedraw)
 		Invalidate();
 	return TRUE;
+}
+
+int ZListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CListCtrl::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	// TODO:  在此添加您专用的创建代码
+	if (m_editModify.m_hWnd == NULL)
+	{
+		m_editModify.Create(WS_CHILD | WS_VISIBLE | ES_CENTER | WS_TABSTOP | WS_EX_TOOLWINDOW, CRect(0, 0, 0, 0), this, IDC_EDIT_MODIFY);
+		m_editModify.ShowWindow(SW_HIDE);
+		m_editModify.SetFont(GetFont());
+	}
+	return 0;
 }

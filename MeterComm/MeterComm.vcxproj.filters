@@ -144,6 +144,24 @@
     <ClInclude Include="ZUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CCardTesting.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCardDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCardHeadDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCardItemDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCardContentDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeterComm.cpp">
@@ -243,6 +261,24 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ZUtil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCardTesting.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCardDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCardHeadDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCardItemDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CCardContentDB.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

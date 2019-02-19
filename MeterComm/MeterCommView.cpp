@@ -19,6 +19,7 @@
 #include "MeterTesting.h"
 #include "SoftwareUpdate.h"
 #include "DIDataBase.h"
+#include "CCardTesting.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -42,6 +43,7 @@ BEGIN_MESSAGE_MAP(CMeterCommView, CFormView)
 	ON_COMMAND(ID_SETTING_NETWORK, &CMeterCommView::OnSettingNetwork)
 	ON_COMMAND(ID_TESTING_PRODUCE, &CMeterCommView::OnTestingProduce)
 	ON_COMMAND(ID_TESTING_METER, &CMeterCommView::OnTestingMeter)
+	ON_COMMAND(ID_TESTING_CARD, &CMeterCommView::OnTestingCard)
 	ON_BN_CLICKED(IDC_BUTTON_GETIDPARAM, &CMeterCommView::OnBnClickedButtonGetidparam)
 	ON_WM_SIZE()
 	ON_MESSAGE(WM_MSGRECVPRO, &CMeterCommView::OnMsgrecvpro)
@@ -934,6 +936,13 @@ void CMeterCommView::OnTestingMeter()
 	m_p_metertest->BringWindowToTop();
 	m_p_metertest->MoveWindow(rc,FALSE);
 	m_p_metertest->ShowWindow(SW_SHOW);
+}
+
+void CMeterCommView::OnTestingCard()
+{
+	// TODO: 在此添加命令处理程序代码
+	CCardTesting cardtesting;
+	cardtesting.DoModal();
 }
 
 void CMeterCommView::AddClipSiblings(void)

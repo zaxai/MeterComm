@@ -91,6 +91,7 @@ public:
 	afx_msg void OnSettingNetwork();
 	afx_msg void OnTestingProduce();
 	afx_msg void OnTestingMeter();
+	afx_msg void OnTestingCard();
 	void AddClipSiblings(void);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	void ChangeSize(UINT nID,const CRect & rcParent);

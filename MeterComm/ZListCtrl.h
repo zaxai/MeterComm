@@ -61,4 +61,5 @@ public:
 	BOOL SetBkColor(COLORREF cr, BOOL bRedraw = TRUE);
 	BOOL SetTextDefaultColor(COLORREF cr, BOOL bRedraw = TRUE);
 	BOOL SetBkDefaultColor(COLORREF cr, BOOL bRedraw = TRUE);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };

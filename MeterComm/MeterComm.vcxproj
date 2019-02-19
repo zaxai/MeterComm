@@ -107,6 +107,12 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CCard.h" />
+    <ClInclude Include="CCardContentDB.h" />
+    <ClInclude Include="CCardDB.h" />
+    <ClInclude Include="CCardHeadDB.h" />
+    <ClInclude Include="CCardItemDB.h" />
+    <ClInclude Include="CCardTesting.h" />
     <ClInclude Include="ComPortSetting.h" />
     <ClInclude Include="DataItem.h" />
     <ClInclude Include="DIDataBase.h" />
@@ -144,6 +150,12 @@
     <ClInclude Include="ZUtil.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCard.cpp" />
+    <ClCompile Include="CCardContentDB.cpp" />
+    <ClCompile Include="CCardDB.cpp" />
+    <ClCompile Include="CCardHeadDB.cpp" />
+    <ClCompile Include="CCardItemDB.cpp" />
+    <ClCompile Include="CCardTesting.cpp" />
     <ClCompile Include="ComPortSetting.cpp" />
     <ClCompile Include="DataItem.cpp" />
     <ClCompile Include="DIDataBase.cpp" />

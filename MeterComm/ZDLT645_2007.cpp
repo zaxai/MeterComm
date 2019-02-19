@@ -1423,6 +1423,49 @@ int ZDLT645_2007::SwitchChargeMode15CSG(CString & strData)
 	return nRtn;
 }
 
+int ZDLT645_2007::ReadParamPresetCard18SGC(CString & strCardNum, CString & strAppBina, CString & strMoney, CString & strTimeZoneParam)
+{
+	typedef int(_stdcall *ReadParamPresetCard)(char * cardNum, char * fillAppBina, char * fileMoney, char * fileTimeZoneParam);
+	char sz_cCardNum[20] = { 0 }, sz_cAppBina[500] = { 0 }, sz_cMoney[500] = { 0 }, sz_cTimeZoneParam[500] = { 0 };
+	ReadParamPresetCard rppc;
+	int nRtn = -1;
+	rppc = (ReadParamPresetCard)GetProcAddress(m_hDll18SGC, "ReadParamPresetCard");
+	if (rppc)
+	{
+		nRtn = rppc(sz_cCardNum, sz_cAppBina, sz_cMoney, sz_cTimeZoneParam);
+		if (!nRtn)
+		{
+			strCardNum = sz_cCardNum;
+			strAppBina = sz_cAppBina;
+			strMoney = sz_cMoney;
+			strTimeZoneParam = sz_cTimeZoneParam;
+		}
+	}
+	return nRtn;
+}
+
+int ZDLT645_2007::WriteParamPresetCard18SGC(const CString & strIp, const CString & strPort, const CString & strTimeOut, const CString & strAppBina, const CString & strMoney, const CString & strTimeZoneParam)
+{
+	typedef int(_stdcall *WriteParamPresetCard)(char * IP, int Port, int TimeOut, char * fillAppBina, char * fileMoney, char * fileTimeZoneParam);
+	int nPort, nTimeOut;
+	char szIp[20] = { 0 };
+	char sz_cAppBina[500] = { 0 }, sz_cMoney[500] = { 0 }, sz_cTimeZoneParam[500] = { 0 };
+	WriteParamPresetCard wppc;
+	int nRtn = -1;
+	wppc = (WriteParamPresetCard)GetProcAddress(m_hDll18SGC, "WriteParamPresetCard");
+	if (wppc)
+	{
+		nPort = _ttoi(strPort);
+		nTimeOut = _ttoi(strTimeOut);
+		ZUtil::WtoA(strIp, szIp, sizeof(szIp));
+		ZUtil::WtoA(strAppBina, sz_cAppBina, sizeof(sz_cAppBina));
+		ZUtil::WtoA(strMoney, sz_cMoney, sizeof(sz_cMoney));
+		ZUtil::WtoA(strTimeZoneParam, sz_cTimeZoneParam, sizeof(sz_cTimeZoneParam));
+		nRtn = wppc(szIp, nPort, nTimeOut / 1000, sz_cAppBina, sz_cMoney, sz_cTimeZoneParam);
+	}
+	return nRtn;
+}
+
 int ZDLT645_2007::GetEncodeRemoteData(CString & strData,CString & strError)
 {
 	int nRtn = 0;
