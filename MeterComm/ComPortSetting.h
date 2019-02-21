@@ -33,13 +33,13 @@ private:
 	ZButton m_btnSetComPort;
 	ZButton m_btnOK;
 	ZButton m_btnCancel;
+	CButton m_checkIsMDComPortOpen;
 protected:
 	afx_msg LRESULT OnMsgrecvpro(WPARAM wParam, LPARAM lParam);
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButtonSetcomport();
 	afx_msg void OnBnClickedCheckIsmdcomportopen();
-	CButton m_checkIsMDComPortOpen;
 	bool CheckMDComPortAvailable(void);
 	void EnableBtn(const BOOL & bEnable);
 	afx_msg void OnEnChangeEditComportnum();

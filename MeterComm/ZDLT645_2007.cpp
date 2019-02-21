@@ -1466,6 +1466,107 @@ int ZDLT645_2007::WriteParamPresetCard18SGC(const CString & strIp, const CString
 	return nRtn;
 }
 
+int ZDLT645_2007::ReadTestingCard18SGC(CString & strCardNum, CString & strESAMAppBina, CString & strESAMWorkInfo, CString & strESAMMoney)
+{
+	typedef int(_stdcall *ReadTestingCard)(char * cardNum, char * fillESAMAppBina, char * fileESAMWorkInfo, char * fileESAMMoney);
+	char sz_cCardNum[20] = { 0 }, sz_cESAMAppBina[500] = { 0 }, sz_cESAMWorkInfo[500] = { 0 }, sz_cESAMMoney[500] = { 0 };
+	ReadTestingCard rtc;
+	int nRtn = -1;
+	rtc = (ReadTestingCard)GetProcAddress(m_hDll18SGC, "ReadTestingCard");
+	if (rtc)
+	{
+		nRtn = rtc(sz_cCardNum, sz_cESAMAppBina, sz_cESAMWorkInfo, sz_cESAMMoney);
+		if (!nRtn)
+		{
+			strCardNum = sz_cCardNum;
+			strESAMAppBina = sz_cESAMAppBina;
+			strESAMWorkInfo = sz_cESAMWorkInfo;
+			strESAMMoney = sz_cESAMMoney;
+		}
+	}
+	return nRtn;
+}
+
+int ZDLT645_2007::ReadIncreaseAmountCard18SGC(CString & strCardNum, CString & strAppBina)
+{
+	typedef int(_stdcall *ReadIncreaseAmountCard)(char * cardNum, char * fillAppBina);
+	char sz_cCardNum[20] = { 0 }, sz_cAppBina[500] = { 0 };
+	ReadIncreaseAmountCard riac;
+	int nRtn = -1;
+	riac = (ReadIncreaseAmountCard)GetProcAddress(m_hDll18SGC, "ReadIncreaseAmountCard");
+	if (riac)
+	{
+		nRtn = riac(sz_cCardNum, sz_cAppBina);
+		if (!nRtn)
+		{
+			strCardNum = sz_cCardNum;
+			strAppBina = sz_cAppBina;
+		}
+	}
+	return nRtn;
+}
+
+int ZDLT645_2007::WriteIncreaseAmountCard18SGC(const CString & strIp, const CString & strPort, const CString & strTimeOut, const CString & strAppBina)
+{
+	typedef int(_stdcall *WriteIncreaseAmountCard)(char * IP, int Port, int TimeOut, char * fillAppBina);
+	int nPort, nTimeOut;
+	char szIp[20] = { 0 };
+	char sz_cAppBina[500] = { 0 };
+	WriteIncreaseAmountCard wiac;
+	int nRtn = -1;
+	wiac = (WriteIncreaseAmountCard)GetProcAddress(m_hDll18SGC, "WriteIncreaseAmountCard");
+	if (wiac)
+	{
+		nPort = _ttoi(strPort);
+		nTimeOut = _ttoi(strTimeOut);
+		ZUtil::WtoA(strIp, szIp, sizeof(szIp));
+		ZUtil::WtoA(strAppBina, sz_cAppBina, sizeof(sz_cAppBina));
+		nRtn = wiac(szIp, nPort, nTimeOut / 1000, sz_cAppBina);
+	}
+	return nRtn;
+}
+
+int ZDLT645_2007::ReadModifyMeterNumCard18SGC(CString & strCardNum, CString & strAppBina, CString & strReverAppBina)
+{
+	typedef int(_stdcall *ReadModifyMeterNumCard)(char * cardNum, char * fillAppBina, char * fileReverAppBina);
+	char sz_cCardNum[20] = { 0 }, sz_cAppBina[500] = { 0 }, sz_cReverAppBina[500] = { 0 };
+	ReadModifyMeterNumCard rmmnc;
+	int nRtn = -1;
+	rmmnc = (ReadModifyMeterNumCard)GetProcAddress(m_hDll18SGC, "ReadModifyMeterNumCard");
+	if (rmmnc)
+	{
+		nRtn = rmmnc(sz_cCardNum, sz_cAppBina, sz_cReverAppBina);
+		if (!nRtn)
+		{
+			strCardNum = sz_cCardNum;
+			strAppBina = sz_cAppBina;
+			strReverAppBina = sz_cReverAppBina;
+		}
+	}
+	return nRtn;
+}
+
+int ZDLT645_2007::WriteModifyMeterNumCard18SGC(const CString & strIp, const CString & strPort, const CString & strTimeOut, const CString & strAppBina, const CString & strReverAppBina)
+{
+	typedef int(_stdcall *WriteModifyMeterNumCard)(char * IP, int Port, int TimeOut, char * fillAppBina, char * fileReverAppBina);
+	int nPort, nTimeOut;
+	char szIp[20] = { 0 };
+	char sz_cAppBina[500] = { 0 }, sz_cReverAppBina[500] = { 0 };
+	WriteModifyMeterNumCard wmmnc;
+	int nRtn = -1;
+	wmmnc = (WriteModifyMeterNumCard)GetProcAddress(m_hDll18SGC, "WriteModifyMeterNumCard");
+	if (wmmnc)
+	{
+		nPort = _ttoi(strPort);
+		nTimeOut = _ttoi(strTimeOut);
+		ZUtil::WtoA(strIp, szIp, sizeof(szIp));
+		ZUtil::WtoA(strAppBina, sz_cAppBina, sizeof(sz_cAppBina));
+		ZUtil::WtoA(strReverAppBina, sz_cReverAppBina, sizeof(sz_cReverAppBina));
+		nRtn = wmmnc(szIp, nPort, nTimeOut / 1000, sz_cAppBina, sz_cReverAppBina);
+	}
+	return nRtn;
+}
+
 int ZDLT645_2007::GetEncodeRemoteData(CString & strData,CString & strError)
 {
 	int nRtn = 0;
