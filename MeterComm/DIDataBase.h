@@ -4,7 +4,7 @@
 
 // CDIDataBase ¶Ô»°¿ò
 
-class CDIDataBase : public CDialogEx
+class CDIDataBase : public CDialogEx,public ZListCtrl::ModifyCallBack
 {
 	DECLARE_DYNAMIC(CDIDataBase)
 
@@ -26,10 +26,9 @@ private:
 	ZButton m_btnOK;
 	ZButton m_btnCancel;
 	bool m_bIsInitFinish;
-protected:
-	afx_msg LRESULT OnMsgrecvpro(WPARAM wParam, LPARAM lParam);
 public:
 	virtual BOOL OnInitDialog();
+	virtual void OnModifyItem(const ZListCtrl::ItemInfo & ii);
 	void InitList(void);
 	void InsertList(void);
 	afx_msg void OnBnClickedButtonAdd();

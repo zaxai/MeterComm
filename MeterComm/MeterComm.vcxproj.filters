@@ -78,12 +78,6 @@
     <ClInclude Include="ProduceTesting.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ZEdit.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ZListCtrl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ParamSetting.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -94,9 +88,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MeterPos.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ZButton.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DataItem.h">
@@ -162,6 +153,15 @@
     <ClInclude Include="CCardContentDB.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="ZButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ZListCtrl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ZListEdit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeterComm.cpp">
@@ -197,12 +197,6 @@
     <ClCompile Include="ProduceTesting.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ZListCtrl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ZEdit.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="ParamSetting.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -213,9 +207,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MeterPos.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ZButton.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DataItem.cpp">
@@ -279,6 +270,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CCardContentDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ZButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ZListCtrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ZListEdit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

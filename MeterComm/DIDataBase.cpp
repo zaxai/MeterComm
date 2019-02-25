@@ -13,6 +13,7 @@ IMPLEMENT_DYNAMIC(CDIDataBase, CDialogEx)
 
 CDIDataBase::CDIDataBase(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDIDataBase::IDD, pParent)
+	, m_listItem(this)
 	, m_bIsInitFinish(false)
 {
 
@@ -34,7 +35,6 @@ void CDIDataBase::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CDIDataBase, CDialogEx)
-	ON_MESSAGE(WM_MSGRECVPRO, &CDIDataBase::OnMsgrecvpro)
 	ON_BN_CLICKED(IDC_BUTTON_ADD, &CDIDataBase::OnBnClickedButtonAdd)
 	ON_BN_CLICKED(IDC_BUTTON_DELETE, &CDIDataBase::OnBnClickedButtonDelete)
 	ON_WM_ERASEBKGND()
@@ -60,6 +60,61 @@ BOOL CDIDataBase::OnInitDialog()
 }
 
 
+void CDIDataBase::OnModifyItem(const ZListCtrl::ItemInfo & ii)
+{
+	const CString sz_strHead[] = { _T("ID"),_T("DataItem"),_T("DataName"),_T("FstClass"),_T("SecClass"),_T("DataFormat"),_T("DataLen"),_T("Unit"),_T("IsRead"),_T("IsWrite"),_T("IsASCII") };
+	ZSqlite3 zsql;
+	CString strPath = ZUtil::GetExeCatalogPath() + _T("\\res\\DataItem.di");
+	CStdioFile f;
+	if (!f.Open(strPath, CFile::modeRead))
+	{
+		AfxMessageBox(_T("数据库文件丢失!"));
+	}
+	else
+	{
+		f.Close();
+		if (!zsql.OpenDB(strPath))
+		{
+			AfxMessageBox(_T("数据库打开出错!"));
+		}
+		else
+		{
+			CString strSQL, strError, strHead, strValue, strWhere;
+			strHead = sz_strHead[ii.m_nSubItem];
+			strValue = m_listItem.GetItemText(ii.m_nItem, ii.m_nSubItem);
+			if (ii.m_nSubItem != 0)
+			{
+				strWhere = m_listItem.GetItemText(ii.m_nItem, 0);
+				strSQL.Format(_T("UPDATE DataItem645 SET %s='%s' WHERE ID=%d"), strHead, strValue, _ttoi(strWhere));
+			}
+			else
+			{
+				strWhere = m_listItem.GetItemText(ii.m_nItem, 1);
+				strSQL.Format(_T("UPDATE DataItem645 SET %s=%d WHERE DataItem='%s'"), strHead, _ttoi(strValue), strWhere);
+			}
+			if (zsql.ExecSQL(strSQL, &strError))
+			{
+				if (ii.m_nSubItem != 0)
+				{
+					strWhere = m_listItem.GetItemText(ii.m_nItem, 0);
+					strSQL.Format(_T("SELECT %s FROM DataItem645 WHERE ID=%d"), strHead, _ttoi(strWhere));
+				}
+				else
+				{
+					strWhere = m_listItem.GetItemText(ii.m_nItem, 1);
+					strSQL.Format(_T("SELECT %s FROM DataItem645 WHERE DataItem='%s'"), strHead, strWhere);
+				}
+				std::vector<std::vector <CString>> vec2_strData;
+				zsql.GetTable(strSQL, vec2_strData, &strError);
+				if (vec2_strData.size())
+					m_listItem.SetItemText(ii.m_nItem, ii.m_nSubItem, vec2_strData[1][0]);
+				AfxMessageBox(_T("执行失败 ") + strError);
+			}
+		}
+	}
+}
+
+
 void CDIDataBase::InitList(void)
 {
 	CRect rc;     
@@ -77,8 +132,11 @@ void CDIDataBase::InitList(void)
 	m_listItem.InsertColumn(8, _T("是否可读"), LVCFMT_LEFT, rc.Width()*2/nMax,8); 
 	m_listItem.InsertColumn(9, _T("是否可写"), LVCFMT_LEFT, rc.Width()*2/nMax,9); 
 	m_listItem.InsertColumn(10, _T("是否ASCII"), LVCFMT_LEFT, rc.Width()*2/nMax,10); 
-	m_listItem.EnableEdit(true);
+	m_listItem.EnableEdit(TRUE);
+	m_listItem.SetDefaultEnableFlag(TRUE);
 	m_listItem.SetTextDefaultColor(RGB(192,64,0));
+	m_listItem.SetEditBkColor(RGB(192, 64, 0));
+	m_listItem.SetEditTextColor(RGB(255, 255, 255));
 }
 
 void CDIDataBase::InsertList(void)
@@ -118,72 +176,6 @@ void CDIDataBase::InsertList(void)
 			}
 		}
 	}
-}
-
-afx_msg LRESULT CDIDataBase::OnMsgrecvpro(WPARAM wParam, LPARAM lParam)
-{
-	switch(lParam)
-	{
-	case MSGUSER_SP_EDITKILLFOCUS:
-		{
-			if(m_listItem.m_hWnd)
-			{
-				ItemInfo * p_ii=(ItemInfo *)wParam;
-				const CString sz_strHead[]={_T("ID"),_T("DataItem"),_T("DataName"),_T("FstClass"),_T("SecClass"),_T("DataFormat"),_T("DataLen"),_T("Unit"),_T("IsRead"),_T("IsWrite"),_T("IsASCII")};
-				ZSqlite3 zsql;
-				CString strPath=ZUtil::GetExeCatalogPath()+_T("\\res\\DataItem.di");
-				CStdioFile f;
-				if(!f.Open(strPath, CFile::modeRead))
-				{
-					AfxMessageBox(_T("数据库文件丢失!"));
-				}
-				else
-				{
-					f.Close();
-					if(!zsql.OpenDB(strPath))
-					{
-						AfxMessageBox(_T("数据库打开出错!"));
-					}
-					else
-					{
-						CString strSQL,strError,strHead,strValue,strWhere;
-						strHead=sz_strHead[p_ii->m_nSubItem];
-						strValue=m_listItem.GetItemText(p_ii->m_nItem,p_ii->m_nSubItem);
-						if(p_ii->m_nSubItem!=0)
-						{
-							strWhere=m_listItem.GetItemText(p_ii->m_nItem,0);
-							strSQL.Format(_T("UPDATE DataItem645 SET %s='%s' WHERE ID=%d"),strHead,strValue,_ttoi(strWhere));
-						}
-						else
-						{
-							strWhere=m_listItem.GetItemText(p_ii->m_nItem,1);
-							strSQL.Format(_T("UPDATE DataItem645 SET %s=%d WHERE DataItem='%s'"),strHead,_ttoi(strValue),strWhere);
-						}
-						if(zsql.ExecSQL(strSQL,&strError))
-						{
-							if(p_ii->m_nSubItem!=0)
-							{
-								strWhere=m_listItem.GetItemText(p_ii->m_nItem,0);
-								strSQL.Format(_T("SELECT %s FROM DataItem645 WHERE ID=%d"),strHead,_ttoi(strWhere));
-							}
-							else
-							{
-								strWhere=m_listItem.GetItemText(p_ii->m_nItem,1);
-								strSQL.Format(_T("SELECT %s FROM DataItem645 WHERE DataItem='%s'"),strHead,strWhere);
-							}
-							std::vector<std::vector <CString>> vec2_strData;
-							zsql.GetTable(strSQL,vec2_strData,&strError);
-							if(vec2_strData.size())
-								m_listItem.SetItemText(p_ii->m_nItem,p_ii->m_nSubItem,vec2_strData[1][0]);
-							AfxMessageBox(_T("执行失败 ")+strError);
-						}
-					}
-				}
-			}
-		}
-		break;
-	}
-	return 0;
 }
 
 

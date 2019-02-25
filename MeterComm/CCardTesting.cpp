@@ -91,7 +91,7 @@ void CCardTesting::InsertTab(int nCardType)
 {
 	if (m_tabCardContent.DeleteAllItems())
 	{
-		for (CListCtrl * p_list : m_vec_listItem)
+		for (ZListCtrl * p_list : m_vec_listItem)
 		{
 			if (p_list != NULL)
 			{
@@ -123,7 +123,6 @@ void CCardTesting::InsertTab(int nCardType)
 				p_list->Create(WS_CHILD | WS_VISIBLE | LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_TABSTOP, rc, &m_tabCardContent, IDC_LIST_START + i);
 				p_list->SetExtendedStyle(p_list->GetExtendedStyle() | LVS_EX_DOUBLEBUFFER | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES );
 				p_list->SetTextDefaultColor(RGB(192, 64, 0));
-				p_list->EnableEdit(true);
 				p_list->InsertColumn(0, _T("数据项"), LVCFMT_LEFT, rc.Width() * 4 / 9, 0);
 				p_list->InsertColumn(1, _T("内容"), LVCFMT_LEFT, rc.Width() * 4 / 9, 1);
 				strSql.Format(_T("SELECT * FROM CardItem WHERE ProtocolType=%d AND DllType=%d AND CardType=%d ORDER BY ID LIMIT 3"), g_v.g_nProtocolType, g_v.g_nDllType, nCardType);
@@ -143,6 +142,10 @@ void CCardTesting::InsertTab(int nCardType)
 						p_list->InsertItem(j,vec_strItem[j]);
 						p_list->SetItemText(j,1,vec_strContent[j]);
 					}
+					p_list->EnableEdit(TRUE);
+					p_list->SetColumnEnableFlag(1,TRUE);
+					p_list->SetEditBkColor(RGB(192, 64, 0));
+					p_list->SetEditTextColor(RGB(255, 255, 255));
 				}
 				m_vec_listItem.push_back(p_list);
 			}
@@ -206,7 +209,7 @@ void CCardTesting::OnTcnSelchangeTabCardcontent(NMHDR *pNMHDR, LRESULT *pResult)
 	int nSel = m_tabCardContent.GetCurSel();
 	if (nSel != -1)
 	{
-		for (CListCtrl * p_list : m_vec_listItem)
+		for (ZListCtrl * p_list : m_vec_listItem)
 			p_list->ShowWindow(SW_HIDE);
 		m_vec_listItem[nSel]->ShowWindow(SW_SHOW);
 	}

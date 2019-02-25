@@ -137,10 +137,10 @@
     <ClInclude Include="ZDevicePort.h" />
     <ClInclude Include="ZDLT645_2007.h" />
     <ClInclude Include="ZDLT698_45.h" />
-    <ClInclude Include="ZEdit.h" />
     <ClInclude Include="ZFac645.h" />
     <ClInclude Include="ZFileSocket.h" />
     <ClInclude Include="ZListCtrl.h" />
+    <ClInclude Include="ZListEdit.h" />
     <ClInclude Include="ZProtocol.h" />
     <ClInclude Include="ZRMTProtocol.h" />
     <ClInclude Include="ZSerialPort.h" />
@@ -181,10 +181,10 @@
     <ClCompile Include="ZDevicePort.cpp" />
     <ClCompile Include="ZDLT645_2007.cpp" />
     <ClCompile Include="ZDLT698_45.cpp" />
-    <ClCompile Include="ZEdit.cpp" />
     <ClCompile Include="ZFac645.cpp" />
     <ClCompile Include="ZFileSocket.cpp" />
     <ClCompile Include="ZListCtrl.cpp" />
+    <ClCompile Include="ZListEdit.cpp" />
     <ClCompile Include="ZProtocol.cpp" />
     <ClCompile Include="ZRMTProtocol.cpp" />
     <ClCompile Include="ZSerialPort.cpp" />
