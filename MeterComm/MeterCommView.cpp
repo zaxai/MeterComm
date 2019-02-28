@@ -70,8 +70,6 @@ CMeterCommView::CMeterCommView()
 	, m_nDllSel(1)
 {
 	// TODO: 在此处添加构造代码
-	ZDLT645_2007::CallExDll();
-	ZDLT698_45::CallExDll();
 	ReadGlobalVariable();
 }
 
@@ -105,8 +103,6 @@ CMeterCommView::~CMeterCommView()
 		delete m_p_metertest;
 		m_p_metertest=NULL;
 	}
-	ZDLT698_45::UncallExDll();
-	ZDLT645_2007::UncallExDll();
 }
 
 void CMeterCommView::DoDataExchange(CDataExchange* pDX)
@@ -1255,12 +1251,7 @@ UINT CMeterCommView::CheckSoftwareUpdateThreadFunc(LPVOID lpParam)
 bool CMeterCommView::SocketCommunication(const CString & strDataIn,CString & strDataOut)
 {
 	ZStringSocket zSock;
-	int nRtn=zSock.InitSocket();
-	if(nRtn)
-	{
-		zSock.CloseSocket();
-		return false;
-	}
+	int nRtn=ZSocket::ERROR_OK;
 	CGlobalVariable gvariable;
 	SendMessageTimeout(g_sz_p_wnd[WND_METERCOMM]->m_hWnd,WM_MSGRECVPRO,(WPARAM)&gvariable,MSGUSER_GETSERVERINFO,SMTO_BLOCK,500,NULL); 
 	CString & strIP=gvariable.g_strServerIP;
@@ -1271,23 +1262,13 @@ bool CMeterCommView::SocketCommunication(const CString & strDataIn,CString & str
 	zSock.SetTimeOut(ZSocket::TIMEOUT_RECV,_ttoi(strTimeOut));
 	nRtn=zSock.Connect(strIP,strPort);
 	if(nRtn)
-	{
-		zSock.CloseSocket();
 		return false;
-	}
 	nRtn=zSock.StringSend(strDataIn);
 	if(nRtn)
-	{
-		zSock.CloseSocket();
 		return false;
-	}
 	nRtn=zSock.StringRecv(strDataOut);
 	if(nRtn)
-	{
-		zSock.CloseSocket();
 		return false;
-	}
-	zSock.CloseSocket();
 	return true;
 }
 
@@ -1317,7 +1298,6 @@ UINT CMeterCommView::UpdateDIDBThreadFunc(LPVOID lpParam)
 	strDataIn=strHead+strDataIn;
 	int nRtn=0;
 	ZFileSocket sock;
-	sock.InitSocket();
 	CGlobalVariable gvariable;
 	SendMessageTimeout(g_sz_p_wnd[WND_METERCOMM]->m_hWnd,WM_MSGRECVPRO,(WPARAM)&gvariable,MSGUSER_GETSERVERINFO,SMTO_BLOCK,500,NULL); 
 	CString & strIP=gvariable.g_strServerIP;
@@ -1326,14 +1306,12 @@ UINT CMeterCommView::UpdateDIDBThreadFunc(LPVOID lpParam)
 	nRtn=sock.Connect(strIP,strPort);
 	if(nRtn)
 	{
-		sock.CloseSocket();
 		SetEvent(m_p_MainDlg->m_hEvtExitUpdateDIDB);
 		return 0;
 	}
 	nRtn=sock.StringSend(strDataIn);
 	if(nRtn)
 	{
-		sock.CloseSocket();
 		SetEvent(m_p_MainDlg->m_hEvtExitUpdateDIDB);
 		return 0;
 	}
@@ -1357,7 +1335,6 @@ end:
 	if(m_p_MainDlg->m_hWnd)
 		m_p_MainDlg->PostMessage(WM_MSGRECVPRO,(WPARAM)nRtn,MSGUSER_UPDATEDIDB); 
 	sock.StringRecv(strFinish);
-	sock.CloseSocket();
 	SetEvent(m_p_MainDlg->m_hEvtExitUpdateDIDB);
 	return 0;
 }

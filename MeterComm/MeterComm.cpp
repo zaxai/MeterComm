@@ -65,11 +65,14 @@ int g_nTotalSelectedPort=0;
 bool g_bIsStop=false;
 int g_nMaxTotalPort=100;
 CGlobalVariable g_v;
-CString g_strVersion=_T("1.0.1.11");//需要与rc资源文件里版本号同步
+CString g_strVersion=_T("1.0.1.12");//需要与rc资源文件里版本号同步
 // CMeterCommApp 初始化
 
 BOOL CMeterCommApp::InitInstance()
 {
+	ZSocket::CallSocketDll();
+	ZDLT645_2007::CallExDll();
+	ZDLT698_45::CallExDll();
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。
@@ -154,7 +157,9 @@ int CMeterCommApp::ExitInstance()
 {
 	//TODO: 处理可能已添加的附加资源
 	AfxOleTerm(FALSE);
-
+	ZDLT698_45::UncallExDll();
+	ZDLT645_2007::UncallExDll();
+	ZSocket::UncallSocketDll();
 	return CWinAppEx::ExitInstance();
 }
 

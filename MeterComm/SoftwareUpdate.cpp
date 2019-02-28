@@ -94,12 +94,7 @@ UINT CSoftwareUpdate::CheckSoftwareUpdateThreadFunc(LPVOID lpParam)
 bool CSoftwareUpdate::SocketCommunication(const CString & strDataIn,CString & strDataOut)
 {
 	ZStringSocket zSock;
-	int nRtn=zSock.InitSocket();
-	if(nRtn)
-	{
-		zSock.CloseSocket();
-		return false;
-	}
+	int nRtn = ZSocket::ERROR_OK;
 	CGlobalVariable gvariable;
 	SendMessageTimeout(g_sz_p_wnd[WND_METERCOMM]->m_hWnd,WM_MSGRECVPRO,(WPARAM)&gvariable,MSGUSER_GETSERVERINFO,SMTO_BLOCK,500,NULL); 
 	CString & strIP=gvariable.g_strServerIP;
@@ -110,23 +105,13 @@ bool CSoftwareUpdate::SocketCommunication(const CString & strDataIn,CString & st
 	zSock.SetTimeOut(ZSocket::TIMEOUT_RECV,_ttoi(strTimeOut));
 	nRtn=zSock.Connect(strIP,strPort);
 	if(nRtn)
-	{
-		zSock.CloseSocket();
 		return false;
-	}
 	nRtn=zSock.StringSend(strDataIn);
 	if(nRtn)
-	{
-		zSock.CloseSocket();
 		return false;
-	}
 	nRtn=zSock.StringRecv(strDataOut);
 	if(nRtn)
-	{
-		zSock.CloseSocket();
 		return false;
-	}
-	zSock.CloseSocket();
 	return true;
 }
 
