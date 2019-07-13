@@ -65,7 +65,7 @@ int g_nTotalSelectedPort=0;
 bool g_bIsStop=false;
 int g_nMaxTotalPort=100;
 CGlobalVariable g_v;
-CString g_strVersion=_T("1.0.1.13");//需要与rc资源文件里版本号同步
+CString g_strVersion=_T("1.0.1.14");//需要与rc资源文件里版本号同步
 // CMeterCommApp 初始化
 
 BOOL CMeterCommApp::InitInstance()
