@@ -89,6 +89,7 @@ public:
 	int Obj_Meter_Formal_GetMeterSetData17SGCC(CString & strData);
 	int Obj_Meter_Formal_VerifyMeterData17SGCC(CString & strData);
 	int Obj_Meter_Formal_SetESAMData17SGCC(CString & strData);
+	int Obj_Meter_Formal_GetESAMData17SGCC(CString & strData);
 	int Obj_Meter_Formal_GetTrmKeyData17SGCC(CString & strData);
 	void GetXmlObjValue(const CString & strXml, std::vector<CString> & vec_strObj, std::vector<CString> & vec_strTValue, std::vector<CString> & vec_strDValue, std::vector<int> & vec_nType);
 	void GetXmlObjValue(CMarkup & xml, std::vector<CString> & vec_strObj, std::vector<CString> & vec_strTValue, std::vector<CString> & vec_strDValue, std::vector<int> & vec_nType);
