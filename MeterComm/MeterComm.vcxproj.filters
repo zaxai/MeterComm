@@ -162,6 +162,9 @@
     <ClInclude Include="ZListEdit.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CDecode698Tool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeterComm.cpp">
@@ -279,6 +282,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ZListEdit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CDecode698Tool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -13,6 +13,8 @@
 class CComPortSetting;
 class CProduceTesting;
 class CMeterTesting;
+class CCardTesting;
+class CDecode698Tool;
 class CMeterCommView : public CFormView
 {
 protected: // 仅从序列化创建
@@ -62,9 +64,11 @@ private:
 	ZButton m_btnClearData;
 	CComboBox m_comboProtocol;
 	CComboBox m_comboFuncCode;
-	CComPortSetting *m_p_comportset;
-	CProduceTesting *m_p_protest;
-	CMeterTesting *m_p_metertest;
+	CComPortSetting * m_p_comportset;
+	CProduceTesting * m_p_protest;
+	CMeterTesting * m_p_metertest;
+	CCardTesting * m_p_cardtest;
+	CDecode698Tool * m_p_decode698;
 	HANDLE m_hEvtExitCheckUpdate;
 	HANDLE m_hEvtExitUpdateDIDB;
 	bool m_bIsInitFinish;
@@ -92,6 +96,7 @@ public:
 	afx_msg void OnTestingProduce();
 	afx_msg void OnTestingMeter();
 	afx_msg void OnTestingCard();
+	afx_msg void OnToolDecode698();
 	void AddClipSiblings(void);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	void ChangeSize(UINT nID,const CRect & rcParent);
@@ -112,6 +117,7 @@ public:
 	void ReadGlobalVariable();
 	void WriteGlobalVariable();
 	BOOL InitGlobalVariableDB();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 
 #ifndef _DEBUG  // MeterCommView.cpp 中的调试版本

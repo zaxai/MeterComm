@@ -20,6 +20,7 @@
 #include "SoftwareUpdate.h"
 #include "DIDataBase.h"
 #include "CCardTesting.h"
+#include "CDecode698Tool.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -44,6 +45,7 @@ BEGIN_MESSAGE_MAP(CMeterCommView, CFormView)
 	ON_COMMAND(ID_TESTING_PRODUCE, &CMeterCommView::OnTestingProduce)
 	ON_COMMAND(ID_TESTING_METER, &CMeterCommView::OnTestingMeter)
 	ON_COMMAND(ID_TESTING_CARD, &CMeterCommView::OnTestingCard)
+	ON_COMMAND(ID_TOOL_DECODE698, &CMeterCommView::OnToolDecode698)
 	ON_BN_CLICKED(IDC_BUTTON_GETIDPARAM, &CMeterCommView::OnBnClickedButtonGetidparam)
 	ON_WM_SIZE()
 	ON_MESSAGE(WM_MSGRECVPRO, &CMeterCommView::OnMsgrecvpro)
@@ -64,6 +66,8 @@ CMeterCommView::CMeterCommView()
 	, m_p_comportset(NULL)
 	, m_p_protest(NULL)
 	, m_p_metertest(NULL)
+	, m_p_cardtest(NULL)
+	, m_p_decode698(NULL)
 	, m_hEvtExitCheckUpdate(NULL)
 	, m_hEvtExitUpdateDIDB(NULL)
 	, m_bIsInitFinish(false)
@@ -78,30 +82,40 @@ CMeterCommView::~CMeterCommView()
 	WriteGlobalVariable();
 	WaitForSingleObject(m_hEvtExitCheckUpdate, INFINITE);
 	WaitForSingleObject(m_hEvtExitUpdateDIDB, INFINITE);
-	if(m_hEvtExitCheckUpdate!=NULL)
+	if(m_hEvtExitCheckUpdate)
 	{
 		CloseHandle(m_hEvtExitCheckUpdate);
 		m_hEvtExitCheckUpdate=NULL;
 	}
-	if(m_hEvtExitUpdateDIDB!=NULL)
+	if(m_hEvtExitUpdateDIDB)
 	{
 		CloseHandle(m_hEvtExitUpdateDIDB);
 		m_hEvtExitUpdateDIDB=NULL;
 	}
-	if(m_p_comportset!=NULL)
+	if(m_p_comportset)
 	{
 		delete m_p_comportset;
 		m_p_comportset=NULL;
 	}
-	if(m_p_protest!=NULL)
+	if(m_p_protest)
 	{
 		delete m_p_protest;
 		m_p_protest=NULL;
 	}
-	if(m_p_metertest!=NULL)
+	if(m_p_metertest)
 	{
 		delete m_p_metertest;
 		m_p_metertest=NULL;
+	}
+	if (m_p_cardtest)
+	{
+		delete m_p_cardtest;
+		m_p_cardtest = NULL;
+	}
+	if (m_p_decode698)
+	{
+		delete m_p_decode698;
+		m_p_decode698 = NULL;
 	}
 }
 
@@ -937,8 +951,23 @@ void CMeterCommView::OnTestingMeter()
 void CMeterCommView::OnTestingCard()
 {
 	// TODO: 在此添加命令处理程序代码
-	CCardTesting cardtesting;
-	cardtesting.DoModal();
+	if (m_p_cardtest == NULL)
+	{
+		m_p_cardtest = new CCardTesting();
+		m_p_cardtest->Create(IDD_CARDTESTING, this);
+	}
+	m_p_cardtest->ShowWindow(SW_SHOW);
+}
+
+void CMeterCommView::OnToolDecode698()
+{
+	// TODO: 在此添加命令处理程序代码
+	if (m_p_decode698 == NULL)
+	{
+		m_p_decode698 = new CDecode698Tool();
+		m_p_decode698->Create(IDD_DECODE698, this);
+	}
+	m_p_decode698->ShowWindow(SW_SHOW);
 }
 
 void CMeterCommView::AddClipSiblings(void)
@@ -1488,4 +1517,13 @@ BOOL CMeterCommView::InitGlobalVariableDB()
 		}
 	}
 	return TRUE;
+}
+
+
+BOOL CMeterCommView::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	if (IsDialogMessage(pMsg))
+		return TRUE;
+	return CFormView::PreTranslateMessage(pMsg);
 }

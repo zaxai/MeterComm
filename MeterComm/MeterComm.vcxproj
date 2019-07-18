@@ -113,6 +113,7 @@
     <ClInclude Include="CCardHeadDB.h" />
     <ClInclude Include="CCardItemDB.h" />
     <ClInclude Include="CCardTesting.h" />
+    <ClInclude Include="CDecode698Tool.h" />
     <ClInclude Include="ComPortSetting.h" />
     <ClInclude Include="DataItem.h" />
     <ClInclude Include="DIDataBase.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="CCardHeadDB.cpp" />
     <ClCompile Include="CCardItemDB.cpp" />
     <ClCompile Include="CCardTesting.cpp" />
+    <ClCompile Include="CDecode698Tool.cpp" />
     <ClCompile Include="ComPortSetting.cpp" />
     <ClCompile Include="DataItem.cpp" />
     <ClCompile Include="DIDataBase.cpp" />

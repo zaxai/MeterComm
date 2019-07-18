@@ -141,6 +141,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	lstBasicCommands.AddTail(ID_TESTING_PRODUCE);
 	lstBasicCommands.AddTail(ID_TESTING_METER);
 	lstBasicCommands.AddTail(ID_TESTING_CARD);
+	lstBasicCommands.AddTail(ID_TOOL_DECODE698);
 	lstBasicCommands.AddTail(ID_HELPING_UPDATE);
 	lstBasicCommands.AddTail(ID_APP_ABOUT);
 	lstBasicCommands.AddTail(ID_VIEW_STATUS_BAR);
