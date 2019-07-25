@@ -1302,7 +1302,6 @@ bool CProduceTesting::ResultCompare698(const CString & strResult, const CString 
 {
 	bool bRtn = true;
 	std::vector<CString> vec_strObj, vec_strTValue, vec_strDValue;
-	std::vector<int> vec_nType;
 	std::vector<CString> vec_strCorrectData;
 	CString strXml, strReqResCode,strResultData;
 	strXml = strResult;
@@ -1317,15 +1316,22 @@ pro90:
 	}
 	else if (strReqResCode == _T("85")|| strReqResCode == _T("86")|| strReqResCode == _T("87"))
 	{
-		p_md->m_p_dlt698->GetXmlObjValue(strXml, vec_strObj, vec_strTValue, vec_strDValue, vec_nType);
+		p_md->m_p_dlt698->GetXmlObjValue(strXml, vec_strObj, vec_strTValue, vec_strDValue);
 		ZUtil::StrSplit(strCorrectData, vec_strCorrectData, _T('#'), strCorrectData.Right(1) == _T('#'));
 		int nSize = vec_strObj.size() > vec_strCorrectData.size() ? vec_strCorrectData.size() : vec_strObj.size();
 		for (int i = 0; i < (int)vec_strObj.size(); ++i)
 		{
-			if (vec_nType[i] == 1)
+			if (strReqResCode == _T("85"))
 				strResultData = vec_strTValue[i];
-			else
+			else if(strReqResCode == _T("86"))
 				strResultData = vec_strDValue[i];
+			else
+			{
+				if(vec_strTValue[i].IsEmpty())
+					strResultData = vec_strDValue[i];
+				else
+					strResultData = vec_strTValue[i];
+			}
 			if (i < nSize)
 			{
 				if (ResultCompare(strResultData, vec_strCorrectData[i]))
@@ -1349,8 +1355,7 @@ pro90:
 		if (strExt.Left(1) != _T("-") || strExt.Right(1) != _T("H"))
 		{
 			CString strTValue, strDValue;
-			int  nType;
-			p_md->m_p_dlt698->GetXmlValue(strXml, strTValue, strDValue, nType);
+			p_md->m_p_dlt698->GetXmlValue(strXml, strTValue, strDValue);
 			strText += strDValue;
 			strText.Delete(strText.GetLength() - 1, 1);
 			bRtn = false;

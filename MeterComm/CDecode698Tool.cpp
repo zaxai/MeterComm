@@ -115,6 +115,23 @@ void CDecode698Tool::DecodeXml(const CString & strXml)
 			vec_nIndex.push_back(nIndex);
 			vec_strData.push_back(_T("Obj_") + xml.GetAttrib(_T("obj")));
 			xml.IntoElem();
+			while (xml.FindElem(_T("Rsd")))
+			{
+				vec_nIndex.push_back(nIndex + 1);
+				vec_strData.push_back(_T("Rsd_") + xml.GetAttrib(_T("choice")));
+			}
+			while (xml.FindElem(_T("Rcsd")))
+			{
+				vec_nIndex.push_back(nIndex + 1);
+				vec_strData.push_back(_T("Rcsd"));
+				xml.IntoElem();
+				while (xml.FindElem(_T("Csd")))
+				{
+					vec_nIndex.push_back(nIndex + 2);
+					vec_strData.push_back(_T("Csd_") + xml.GetData());
+				}
+				xml.OutOfElem();
+			}
 			while (xml.FindElem(_T("D")))
 			{
 				vec_nIndex.push_back(nIndex+1);

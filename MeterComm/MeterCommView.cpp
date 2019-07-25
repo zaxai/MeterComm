@@ -1403,7 +1403,7 @@ void CMeterCommView::InitFuncCode(int nProtocol)
 		break;
 	case CMainData::PROTOCOL_DLT698:
 		{
-			CString sz_strFuncCode[]={_T("0501H-读取请求01"),_T("0502H-读取请求02"),_T("0601H-设置请求01"),_T("0602H-设置请求02"),_T("0701H-操作请求01"),_T("0702H-操作请求02"),_T("02H-建立应用连接请求"),_T("03H-断开应用连接请求")};
+			CString sz_strFuncCode[]={_T("0501H-读取请求01"),_T("0502H-读取请求02"),_T("0503H-读取请求03"),_T("0504H-读取请求04"),_T("0601H-设置请求01"),_T("0602H-设置请求02"),_T("0701H-操作请求01"),_T("0702H-操作请求02"),_T("02H-建立应用连接请求"),_T("03H-断开应用连接请求")};
 			for(int i=0;i<sizeof(sz_strFuncCode)/sizeof(CString);++i)
 				m_comboFuncCode.AddString(sz_strFuncCode[i]);
 			m_comboFuncCode.SetCurSel(0);
