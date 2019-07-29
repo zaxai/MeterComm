@@ -1302,7 +1302,7 @@ bool CProduceTesting::ResultCompare698(const CString & strResult, const CString 
 {
 	bool bRtn = true;
 	std::vector<CString> vec_strObj, vec_strTValue, vec_strDValue;
-	std::vector<CString> vec_strCorrectData;
+	std::vector<CString> vec_strCorrectData,vec_strResultData;
 	CString strXml, strReqResCode,strResultData;
 	strXml = strResult;
 pro90:
@@ -1317,34 +1317,40 @@ pro90:
 	else if (strReqResCode == _T("85")|| strReqResCode == _T("86")|| strReqResCode == _T("87"))
 	{
 		p_md->m_p_dlt698->GetXmlObjValue(strXml, vec_strObj, vec_strTValue, vec_strDValue);
-		ZUtil::StrSplit(strCorrectData, vec_strCorrectData, _T('#'), strCorrectData.Right(1) == _T('#'));
-		int nSize = vec_strObj.size() > vec_strCorrectData.size() ? vec_strCorrectData.size() : vec_strObj.size();
-		for (int i = 0; i < (int)vec_strObj.size(); ++i)
+		int nSize = vec_strTValue.size()> vec_strDValue.size()? vec_strDValue.size(): vec_strTValue.size();
+		for (int i = 0; i < nSize; ++i)
 		{
 			if (strReqResCode == _T("85"))
-				strResultData = vec_strTValue[i];
-			else if(strReqResCode == _T("86"))
-				strResultData = vec_strDValue[i];
+				strResultData += vec_strTValue[i]+ _T('#');
+			else if (strReqResCode == _T("86"))
+				strResultData += vec_strDValue[i]+ _T('#');
 			else
 			{
-				if(vec_strTValue[i].IsEmpty())
-					strResultData = vec_strDValue[i];
+				if (vec_strTValue[i].IsEmpty())
+					strResultData += vec_strDValue[i] + _T('#');
 				else
-					strResultData = vec_strTValue[i];
+					strResultData += vec_strTValue[i] + _T('#');
 			}
-			if (i < nSize)
+		}
+		ZUtil::StrSplit(strCorrectData, vec_strCorrectData, _T('#'), strCorrectData.Right(1) == _T('#'));
+		ZUtil::StrSplit(strResultData, vec_strResultData, _T('#'), strResultData.Right(1) == _T('#'));
+		nSize = vec_strResultData.size();
+		int nMin = vec_strResultData.size() > vec_strCorrectData.size() ? vec_strCorrectData.size() : vec_strResultData.size();
+		for (int i = 0; i < nSize; ++i)
+		{
+			if (i < nMin)
 			{
-				if (ResultCompare(strResultData, vec_strCorrectData[i]))
-					strText += strResultData + _T("#");
+				if (ResultCompare(vec_strResultData[i], vec_strCorrectData[i]))
+					strText += vec_strResultData[i] + _T("#");
 				else
 				{
-					strText += _T("E:") + strResultData + _T("#");
+					strText += _T("E:") + vec_strResultData[i] + _T("#");
 					bRtn = false;
 				}
 			}
 			else
 			{
-				strText += strResultData + _T("#");
+				strText += vec_strResultData[i] + _T("#");
 			}
 		}
 		strText.Delete(strText.GetLength() - 1, 1);
